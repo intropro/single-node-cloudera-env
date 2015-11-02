@@ -99,13 +99,13 @@ RUN echo "root:root" | chpasswd
 RUN mkdir /var/log/supervisor && \
     ln -s /usr/lib64/cmf/agent/build/env/bin/supervisorctl /usr/bin/supervisorctl && \
     ln -s /usr/lib64/cmf/agent/build/env/bin/supervisord /usr/bin/supervisord
-ADD supervisord.conf /etc/
-ADD start_web.sh /
+ADD configs/supervisord.conf /etc/
+ADD scripts/start_web.sh /
 RUN mkdir /configs /deploy
-ADD configcollector.sh /deploy/
-ADD autodeploy.sh /deploy/
-ADD etalon.json /deploy/
-# ADD etalon_kerb.json /deploy/
+ADD scripts/configcollector.sh /deploy/
+ADD scripts/autodeploy.sh /deploy/
+ADD configs/etalon.json /deploy/
+# ADD configs/etalon_kerb.json /deploy/
 
 # RUN sed -i 's/#Port 22/Port 8822/' /etc/ssh/sshd_config
 

@@ -109,7 +109,7 @@ function firstdeploy ()
             sleep 5
         done
 
-            cp $SCRIPTPATH/etalon.json $SCRIPTPATH/$CM_CLUSTER_NAME.json
+    cp $SCRIPTPATH/etalon.json $SCRIPTPATH/$CM_CLUSTER_NAME.json
 
     sed -i "s/HOSTIDPLACEHOLDER1/$HOSTID/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json
     sed -i "s/HOSTNAMEPLACEHOLDER1/$CM_HOSTNAME/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json
