@@ -1,6 +1,6 @@
 server:
-    build: .
-    # image: intropro/single-node-cloudera-env
+    # build: .
+    image: intropro/single-node-cloudera-env
     hostname: cm1.bigdata
     privileged: true
     # net: "host"
