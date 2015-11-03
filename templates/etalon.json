@@ -1109,7 +1109,7 @@
       "config" : {
         "items" : [ {
           "name" : "firehose_heapsize",
-          "value" : "99614720"
+          "value" : "268435456"
         }, {
           "name" : "firehose_non_java_memory_bytes",
           "value" : "983564288"
@@ -1159,7 +1159,7 @@
       "config" : {
         "items" : [ {
           "name" : "firehose_heapsize",
-          "value" : "99614720"
+          "value" : "268435456"
         }, {
           "name" : "firehose_non_java_memory_bytes",
           "value" : "983564288"
