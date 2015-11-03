@@ -114,6 +114,8 @@ function firstdeploy ()
     sed -i "s/HOSTIDPLACEHOLDER1/$HOSTID/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json
     sed -i "s/HOSTNAMEPLACEHOLDER1/$CM_HOSTNAME/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json
     sed -i "s/HOSTIPPLACEHOLDER1/$(hostname -i)/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json
+    sed -i "s/FULLCDHVERSIONPLACEHOLDER/$FULLCDHVERSION/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json
+    sed -i "s/PARCELNAMEPLACEHOLDER/$PARCELNAME/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json
     curl --upload-file $SCRIPTPATH/$CM_CLUSTER_NAME.json -u $CM_AUTH "$CMMOUNTPOINT/deployment?deleteCurrentDeployment=true"
 
     # Make procedures for first run of services

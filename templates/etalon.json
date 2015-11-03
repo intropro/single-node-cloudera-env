@@ -4,7 +4,7 @@
     "name" : "Cluster",
     "displayName" : "Cluster1",
     "version" : "CDH5",
-    "fullVersion" : "5.3.3",
+    "fullVersion" : "FULLCDHVERSIONPLACEHOLDER",
     "services" : [ {
       "name" : "hdfs",
       "type" : "HDFS",
@@ -951,14 +951,14 @@
     } ],
     "parcels" : [ {
       "product" : "CDH",
-      "version" : "5.3.3-1.cdh5.3.3.p0.5",
+      "version" : "PARCELNAMEPLACEHOLDER",
       "stage" : "DISTRIBUTED",
       "clusterRef" : {
         "clusterName" : "Cluster1"
       }
     }, {
       "product" : "CDH",
-      "version" : "5.3.3-1.cdh5.3.3.p0.5",
+      "version" : "PARCELNAMEPLACEHOLDER",
       "stage" : "ACTIVATED",
       "clusterRef" : {
         "clusterName" : "Cluster1"
@@ -1000,7 +1000,7 @@
     "pwLogin" : true
   } ],
   "versionInfo" : {
-    "version" : "5.3.3",
+    "version" : "FULLCDHVERSIONPLACEHOLDER",
     "buildUser" : "jenkins",
     "buildTimestamp" : "20150401-1625",
     "gitHash" : "40ff0e551564e4210ab22da5fa9a6e4e56236c44",
