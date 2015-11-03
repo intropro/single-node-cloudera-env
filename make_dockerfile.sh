@@ -22,6 +22,6 @@ if [[ -z "$1" ]]; then
     usage_message
 fi
 
-cp $DOCKERFILE $DOCKERFILE.bc
+[[ -e $DOCKERFILE ]] && cp $DOCKERFILE $DOCKERFILE.bc
 
 sed -e "/# Environment/r$PROFILE"  $DOCKERTEMPLATE > $DOCKERFILE && echo "Dockerfile was generated. Now you can build docker image."
