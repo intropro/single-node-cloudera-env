@@ -6,8 +6,6 @@ DOCKERTEMPLATE=$SCRIPTPATH/templates/dockerfile.tmpl
 PROFILE=$1
 DOCKERFILE=$SCRIPTPATH/Dockerfile
 
-# sed -e '/# Environment/r/home/dan/wd/github.intropro/single-node-cloudera-env/profiles/jdk1.8_cdh5.3.3'  ockerfile.tmpl
-
 usage_message () {
     printf "
 Usage: $0 <path to profile file>
