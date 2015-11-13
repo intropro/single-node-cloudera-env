@@ -10,3 +10,4 @@ server:
         - "8888:8888"   # HUE
         - "11000:11000" # Oozie
         - "50070:50070" # HDFS REST Namenode
+        - "80"

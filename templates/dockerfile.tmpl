@@ -41,35 +41,35 @@ ENV TERM=xterm
 
 # JAVA installation
 RUN wget \
-        --progress=dot:mega \
-        -O /tmp/jdk-$JDKVERSION-x64.rpm \
+        --progress=dot:giga \
+        -O /tmp/jdk-$JDK_VERSION-x64.rpm \
         --no-check-certificate \
         -c \
         --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-        $JDKDOWNLOADPATH && \
-        rpm -Uhv /tmp/jdk-$JDKVERSION-x64.rpm && \
-        rm -f /tmp/jdk-$JDKVERSION-x64.rpm
+        $JDK_DOWNLOAD_PATH && \
+        rpm -Uhv /tmp/jdk-$JDK_VERSION-x64.rpm && \
+        rm -f /tmp/jdk-$JDK_VERSION-x64.rpm
 # Install unlimited security policy for JAVA
 RUN wget \
-        --progress=dot:mega \
+        --progress=dot:giga \
         -O /tmp/JCE.zip \
         --no-check-certificate \
         -c \
         --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-        $JCEPOLICYDOWNLOADPATH && \
+        $JCE_POLICY_DOWNLOAD_PATH && \
         unzip -d /tmp/ /tmp/JCE.zip && \
-        cp -vf /tmp/UnlimitedJCEPolicyJDK?/US_export_policy.jar /usr/java/jdk$JDKVERSION/jre/lib/security/ && \
-        cp -vf /tmp/UnlimitedJCEPolicyJDK?/local_policy.jar /usr/java/jdk$JDKVERSION/jre/lib/security/ && \
+        cp -vf /tmp/UnlimitedJCEPolicyJDK?/US_export_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
+        cp -vf /tmp/UnlimitedJCEPolicyJDK?/local_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
         rm -rf /tmp/*
 
 # Install Cloudera repository
 RUN wget \
-        --progress=dot:mega \
+        --progress=dot:giga \
         -O /etc/yum.repos.d/cloudera-manager.repo \
         http://archive.cloudera.com/cm5/redhat/6/x86_64/cm/cloudera-manager.repo && \
         rpm --import http://archive.cloudera.com/cdh5/redhat/6/x86_64/cdh/RPM-GPG-KEY-cloudera
 # Change CM version
-RUN sed -i "s/^baseurl.*/baseurl=http:\/\/archive.cloudera.com\/cm5\/redhat\/6\/x86_64\/cm\/$CDHVERSION\//" /etc/yum.repos.d/cloudera-manager.repo
+RUN sed -i "s/^baseurl.*/baseurl=http:\/\/archive.cloudera.com\/cm5\/redhat\/6\/x86_64\/cm\/$CDH_VERSION\//" /etc/yum.repos.d/cloudera-manager.repo
 
 RUN yum install --nogpgcheck localinstall -y \
                     cloudera-manager-daemons \
@@ -81,9 +81,9 @@ RUN yum install --nogpgcheck localinstall -y \
 RUN cp -rf /usr/share/zoneinfo/GMT /etc/localtime
 
 # Download parcel
-RUN wget --progress=dot:mega -P $PARCELCACHE $PARCELDIRDOWNLOAD/$PARCELFILENAME && \
-    wget --progress=dot:mega -P $PARCELCACHE $PARCELDIRDOWNLOAD/$PARCELFILENAME.sha1 && \
-    cp -p $PARCELCACHE/$PARCELFILENAME.sha1 $PARCELCACHE/$PARCELFILENAME.sha
+RUN wget --progress=dot:giga -P $PARCELCACHE $PARCEL_DIR_DOWNLOAD/$PARCEL_FILE_NAME && \
+    wget --progress=dot:giga -P $PARCELCACHE $PARCEL_DIR_DOWNLOAD/$PARCEL_FILE_NAME.sha1 && \
+    cp -p $PARCELCACHE/$PARCEL_FILE_NAME.sha1 $PARCELCACHE/$PARCEL_FILE_NAME.sha
 
 RUN for i in /opt/cloudera/parcel-cache/*; do ln -sf $i /opt/cloudera/parcel-repo/$(basename $i); done
 
@@ -101,7 +101,7 @@ RUN mkdir /var/log/supervisor && \
 ADD configs/supervisord.conf /etc/
 ADD scripts/start_web.sh /
 RUN mkdir /configs /deploy
-ADD scripts/configcollector.sh /deploy/
+ADD scripts/configcollector.sh /configs/
 
 ADD scripts/autodeploy.sh /deploy/
 ADD templates/etalon.json /deploy/
@@ -119,9 +119,9 @@ CLUSTERMOUNTPOINT=\"http://\$CM_HOSTNAME:7180/api/v\$CM_API_VERSION/clusters/\$C
 CMMOUNTPOINT=\"http://\$CM_HOSTNAME:7180/api/v\$CM_API_VERSION/cm\"\n\
 COMMANDSMOUNTPOINT=\"http://\$CM_HOSTNAME:7180/api/v\$CM_API_VERSION/commands\"\n\
 
-PARCELNAME=\"$(echo $PARCELFILENAME | sed 's/CDH-//;s/-el6.parcel//')\"\n\
+PARCELNAME=\"$(echo $PARCEL_FILE_NAME | sed 's/CDH-//;s/-el6.parcel//')\"\n\
 CDHVERSION=\"CDH5\"\n\
-FULLCDHVERSION=\"$CDHVERSION\"\n\
+FULLCDHVERSION=\"$CDH_VERSION\"\n\
 " > /etc/profile.d/env.sh && chmod +x /etc/profile.d/env.sh
 
 

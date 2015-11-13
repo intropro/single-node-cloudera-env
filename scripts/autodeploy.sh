@@ -156,11 +156,11 @@ if [[ ! -e $FIRSTRUNFLAG ]]
         waitcm
         firstdeploy
         touch $FIRSTRUNFLAG
-        $SCRIPTPATH/configcollector.sh
+        /configs/configcollector.sh
         configure_hadoop_env
     else
         startcm
         waitcm
         afterfirstdeploy
-        $SCRIPTPATH/configcollector.sh
+        /configs/configcollector.sh
 fi
