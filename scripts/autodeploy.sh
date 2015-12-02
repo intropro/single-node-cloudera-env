@@ -109,7 +109,17 @@ function firstdeploy ()
             sleep 5
         done
 
-    cp $SCRIPTPATH/etalon.json $SCRIPTPATH/$CM_CLUSTER_NAME.json
+    # Copy appropriate template
+    if [[ "$KERBERIZED" == "true" ]]
+        then
+            # Kerberos configuration
+            wget http://kerberos/krb5.conf -O /etc/krb5.conf
+            chown root /opt/cloudera
+            # Upload configuration
+            cp $SCRIPTPATH/etalon_kerb.json $SCRIPTPATH/$CM_CLUSTER_NAME.json
+        else
+            cp $SCRIPTPATH/etalon.json $SCRIPTPATH/$CM_CLUSTER_NAME.json
+    fi
 
     sed -i "s/HOSTIDPLACEHOLDER1/$HOSTID/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json
     sed -i "s/HOSTNAMEPLACEHOLDER1/$CM_HOSTNAME/g" $SCRIPTPATH/$CM_CLUSTER_NAME.json

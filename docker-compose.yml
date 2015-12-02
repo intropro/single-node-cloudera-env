@@ -1,9 +1,8 @@
 server:
     # build: .
     image: intropro/single-node-cloudera-env:5.3.3
-    hostname: cm1.bigdata
     privileged: true
-    # net: "host"
+    hostname: cm1.bigdata
     ports:
         - "8022:22"     # ssh
         - "7180:7180"   # Cloudera Manager
@@ -11,3 +10,9 @@ server:
         - "11000:11000" # Oozie
         - "50070:50070" # HDFS REST Namenode
         - "80"
+    # net: "host"
+    # enable kerberos
+    # extra_hosts:
+    #     - "kerberos:127.0.0.1"
+    # environment:
+    #     - KERBERIZED=true
