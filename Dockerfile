@@ -8,9 +8,9 @@ ENV JDK_VERSION 1.8.0_60
 ENV JDK_DOWNLOAD_PATH http://download.oracle.com/otn-pub/java/jdk/8u60-b26/jdk-8u60-linux-x64.rpm
 ENV JCE_POLICY_DOWNLOAD_PATH http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
 
-ENV CDH_VERSION 5.3.3
-ENV PARCEL_DIR_DOWNLOAD http://archive.cloudera.com/cdh5/parcels/5.3.3/
-ENV PARCEL_FILE_NAME CDH-5.3.3-1.cdh5.3.3.p0.5-el6.parcel
+ENV CDH_VERSION 5.4.8
+ENV PARCEL_DIR_DOWNLOAD http://archive.cloudera.com/cdh5/parcels/5.4.8.4/
+ENV PARCEL_FILE_NAME CDH-5.4.8-1.cdh5.4.8.p0.4-el6.parcel
 
 # Package installation
 RUN yum clean all
@@ -108,6 +108,7 @@ ADD configs/supervisord.conf /etc/
 ADD scripts/start_web.sh /
 RUN mkdir /configs /deploy
 ADD scripts/configcollector.sh /configs/
+ADD scripts/users-config-builder.py /configs/
 
 ADD scripts/autodeploy.sh /deploy/
 ADD templates/etalon.json /deploy/

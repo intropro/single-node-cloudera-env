@@ -130,6 +130,11 @@ function firstdeploy ()
 
     # Make procedures for first run of services
     JOBID=$(curl -sS -u $CM_AUTH -X POST "$CLUSTERMOUNTPOINT/commands/firstRun" | jq '.id')
+    while [[ "$JOBID" == "null" ]]
+        do
+            JOBID=$(curl -sS -u $CM_AUTH -X POST "$CLUSTERMOUNTPOINT/commands/firstRun" | jq '.id')
+        done
+
     jobfinwait $JOBID
 
     # Run cloudera services
@@ -137,6 +142,8 @@ function firstdeploy ()
         "$CMMOUNTPOINT/service/commands/start" | jq '.id')
     jobfinwait $JOBID
 
+    JOBID=$(curl -sS -u $CM_AUTH -X POST "$CLUSTERMOUNTPOINT/commands/deployClientConfig" | jq '.id')
+    jobfinwait $JOBID
 }
 
 function afterfirstdeploy ()

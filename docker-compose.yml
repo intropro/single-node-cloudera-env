@@ -1,7 +1,7 @@
 server:
     # build: .
-    image: intropro/single-node-cloudera-env:5.3.3
-    # image: intropro/single-node-cloudera-env:5.4.8
+    # image: intropro/single-node-cloudera-env:5.3.3
+    image: intropro/single-node-cloudera-env:5.4.8
     privileged: true
     hostname: cm1.bigdata
     ports:
