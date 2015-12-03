@@ -12,6 +12,8 @@ import urlparse
 import zipfile
 import shutil
 
+import contextlib
+
 import xml.etree.ElementTree as ET
 
 
@@ -85,8 +87,8 @@ class ConfigBuilder(object):
 
         URL_TEMPLATE = "http://{hostname}:7180/api/v{api_version}/cm/deployment"
         URL = URL_TEMPLATE.format(
-                    hostname=self.hostname, 
-                    api_version=self.api_version, 
+                    hostname=self.hostname,
+                    api_version=self.api_version,
                     cluster_name=self.cluster_name
         )
         resp = self.get_url(URL)
@@ -106,12 +108,12 @@ class ConfigBuilder(object):
 
 
     def stream2file(self, service_name, stream):
-        ''' save service config 
+        ''' save service config
         '''
-        config_path = os.path.join(self.tmp_dir, '%s.zip' % service_name) 
+        config_path = os.path.join(self.tmp_dir, '%s.zip' % service_name)
         with open(config_path, 'wb') as config:
             config.write(stream.read())
-        with zipfile.ZipFile(config_path) as zipped_config:
+        with contextlib.closing(zipfile.ZipFile(config_path)) as zipped_config:
             zipped_config.extractall(self.tmp_dir)
         os.remove(config_path)
 
@@ -120,15 +122,15 @@ class ConfigBuilder(object):
 
         URL_TEMPLATE = "http://{hostname}:7180/api/v{api_version}/clusters/{cluster_name}/services/{service_name}/clientConfig"
         URL = URL_TEMPLATE.format(
-                    hostname=self.hostname, 
-                    api_version=self.api_version, 
-                    cluster_name=self.cluster_name, 
+                    hostname=self.hostname,
+                    api_version=self.api_version,
+                    cluster_name=self.cluster_name,
                     service_name=service_name
         )
         resp = self.get_url(URL)
         headers = dict(resp.getheaders())
         if headers['content-type'] == 'application/json':
-            return 
+            return
         elif headers['content-type'] == 'application/octet-stream':
             self.stream2file(service_name, resp)
 
@@ -255,4 +257,4 @@ if __name__ == '__main__':
     builder.prepare_conf()
     builder.prepare_evn_props()
 
-    
+
