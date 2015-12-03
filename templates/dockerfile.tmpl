@@ -102,6 +102,7 @@ ADD configs/supervisord.conf /etc/
 ADD scripts/start_web.sh /
 RUN mkdir /configs /deploy
 ADD scripts/configcollector.sh /configs/
+ADD scripts/users-config-builder.py /configs/
 
 ADD scripts/autodeploy.sh /deploy/
 ADD templates/etalon.json /deploy/
