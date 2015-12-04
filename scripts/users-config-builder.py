@@ -7,6 +7,7 @@ import base64
 import optparse
 
 import httplib
+import urllib
 import urlparse
 
 import zipfile
@@ -124,7 +125,7 @@ class ConfigBuilder(object):
         URL = URL_TEMPLATE.format(
                     hostname=self.hostname,
                     api_version=self.api_version,
-                    cluster_name=self.cluster_name,
+                    cluster_name=urllib.quote(self.cluster_name),
                     service_name=service_name
         )
         resp = self.get_url(URL)
@@ -244,7 +245,7 @@ if __name__ == '__main__':
     builder = ConfigBuilder(
         username=opts.username,
         password=opts.password,
-        hostname=opts.hostname,
+       hostname=opts.hostname,
         cluster_name=opts.cluster_name,
         api_version=opts.api_version,
         tmp_dir=opts.tmp_dir,
@@ -253,6 +254,7 @@ if __name__ == '__main__':
 
     builder.config_dump()
     for service in builder.services():
+        print service
         builder.save_config(service)
     builder.prepare_conf()
     builder.prepare_evn_props()

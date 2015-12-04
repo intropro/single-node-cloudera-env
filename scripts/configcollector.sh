@@ -9,7 +9,7 @@ PROPERTYFILE=$CONFIGDIR/conf/environment.properties
 
 cd $CONFIGDIR
 
-python users-config-builder.py --username=${CM_USERNAME} --password=${CM_PASSWORD} --hostname=${CM_HOSTNAME} --cluster-name=${CM_CLUSTER_NAME} --api-version=${CM_API_VERSION}
+python users-config-builder.py --username=${CM_USERNAME} --password=${CM_PASSWORD} --hostname=${CM_HOSTNAME} --cluster-name="$(echo ${CM_CLUSTER_NAME} | sed 's/%20/ /g')" --api-version=${CM_API_VERSION}
 
 
 
