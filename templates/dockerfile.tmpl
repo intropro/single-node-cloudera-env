@@ -58,8 +58,8 @@ RUN wget \
         --header "Cookie: oraclelicense=accept-securebackup-cookie" \
         $JCE_POLICY_DOWNLOAD_PATH && \
         unzip -d /tmp/ /tmp/JCE.zip && \
-        cp -vf /tmp/UnlimitedJCEPolicyJDK?/US_export_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
-        cp -vf /tmp/UnlimitedJCEPolicyJDK?/local_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
+        cp -vf /tmp/UnlimitedJCEPolicy*/US_export_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
+        cp -vf /tmp/UnlimitedJCEPolicy*/local_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
         rm -rf /tmp/*
 
 # Install Cloudera repository

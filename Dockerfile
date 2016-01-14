@@ -4,13 +4,13 @@ ENV PARCELDIR /opt/cloudera/parcel-repo
 ENV PARCELCACHE /opt/cloudera/parcel-cache
 
 # Environment
-ENV JDK_VERSION 1.8.0_60
-ENV JDK_DOWNLOAD_PATH http://download.oracle.com/otn-pub/java/jdk/8u60-b26/jdk-8u60-linux-x64.rpm
-ENV JCE_POLICY_DOWNLOAD_PATH http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
+ENV JDK_VERSION 1.7.0_80
+ENV JDK_DOWNLOAD_PATH http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.rpm
+ENV JCE_POLICY_DOWNLOAD_PATH http://download.oracle.com/otn-pub/java/jce/7/UnlimitedJCEPolicyJDK7.zip
 
-ENV CDH_VERSION 5.4.8
-ENV PARCEL_DIR_DOWNLOAD http://archive.cloudera.com/cdh5/parcels/5.4.8.4/
-ENV PARCEL_FILE_NAME CDH-5.4.8-1.cdh5.4.8.p0.4-el6.parcel
+ENV CDH_VERSION 5.3.3
+ENV PARCEL_DIR_DOWNLOAD http://archive.cloudera.com/cdh5/parcels/5.3.3/
+ENV PARCEL_FILE_NAME CDH-5.3.3-1.cdh5.3.3.p0.5-el6.parcel
 
 # Package installation
 RUN yum clean all
@@ -64,8 +64,8 @@ RUN wget \
         --header "Cookie: oraclelicense=accept-securebackup-cookie" \
         $JCE_POLICY_DOWNLOAD_PATH && \
         unzip -d /tmp/ /tmp/JCE.zip && \
-        cp -vf /tmp/UnlimitedJCEPolicyJDK?/US_export_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
-        cp -vf /tmp/UnlimitedJCEPolicyJDK?/local_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
+        cp -vf /tmp/UnlimitedJCEPolicy*/US_export_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
+        cp -vf /tmp/UnlimitedJCEPolicy*/local_policy.jar /usr/java/jdk$JDK_VERSION/jre/lib/security/ && \
         rm -rf /tmp/*
 
 # Install Cloudera repository
