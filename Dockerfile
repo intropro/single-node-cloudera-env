@@ -114,7 +114,7 @@ ADD scripts/autodeploy.sh /deploy/
 ADD templates/etalon.json /deploy/
 ADD templates/etalon_kerb.json /deploy/
 
-RUN sed -i 's/#Port 22/Port 8822/' /etc/ssh/sshd_config
+# RUN sed -i 's/#Port 22/Port 8822/' /etc/ssh/sshd_config
 
 RUN printf "CM_USERNAME=admin\n\
 CM_PASSWORD=admin\n\
