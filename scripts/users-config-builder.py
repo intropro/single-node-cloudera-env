@@ -205,6 +205,7 @@ class ConfigBuilder(object):
         for prop in self.xml2dict(os.path.join(self.conf_dir, 'hive-site.xml')):
             if prop['name'] == 'hive.zookeeper.quorum':
                 env_props['hiveZookeeperQuorum'] = prop['value']
+                env_props['zookeeperQuorum'] = prop['value']
 
             if prop['name'] == 'hive.metastore.uris':
                 env_props['hiveMetastoreUris'] = prop['value']
